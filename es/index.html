@@ -42,17 +42,13 @@
 body{background-color:var(--bg-paper);color:var(--text-black);line-height:1.6;-webkit-font-smoothing:antialiased;}
 a{text-decoration:none;color:inherit;}
 
-/* -------------------------------------
-   [수정됨] 헤더 및 로고 (Style 2: 세로 스택형)
-------------------------------------- */
+/* 헤더 및 로고 (Style 2: 세로 스택형) */
 header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px);display:flex;justify-content:center;align-items:center;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:100;}
 .logo-base { font-family: 'DM Sans', sans-serif; text-decoration: none; display: flex; flex-direction: column; align-items: center; white-space: nowrap; }
 .logo-base .main { font-size: 24px; font-weight: 900; color: var(--text-black); letter-spacing: -0.03em; line-height: 1.1; }
 .logo-base .sub { font-size: 11.5px; font-weight: 800; color: var(--accent-color); letter-spacing: 0.25em; text-transform: uppercase; margin-top: 3px; }
 
-/* -------------------------------------
-   [수정됨] 히어로 섹션 (Style 5 + 글자 크기 증가)
-------------------------------------- */
+/* 히어로 섹션 (Style 5 + 글자 크기 증가) */
 .hero { background: var(--bg-white); border: 1px solid var(--border-color); max-width: 900px; margin: 40px auto 40px auto; padding: 60px 40px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
 .hero-badge { display: inline-block; background: #EEF2FF; color: var(--accent-color); padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 15px; margin-bottom: 24px; letter-spacing: 0; }
 .hero h1 { font-size: 38px; font-weight: 900; margin-bottom: 24px; line-height: 1.35; letter-spacing: -0.03em; word-break: keep-all; }
@@ -63,8 +59,7 @@ header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px)
 .hero-feature-item { background: var(--bg-paper); border: 1px solid var(--border-color); padding: 10px 18px; font-size: 15px; font-weight: 800; color: var(--text-black); display: flex; align-items: center; gap: 8px; }
 .hero-feature-item svg { width: 16px; height: 16px; stroke: var(--accent-color); fill: none; stroke-width: 3; }
 
-
-/* 기존 컨텐츠 스타일 유지 */
+/* 컨테이너 및 검색 컨트롤 */
 .container{max-width:1100px;margin:0 auto;padding:70px 5%;}
 .section-header{margin-bottom:30px;text-align:left;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
 .section-title{font-size:28px;font-weight:900;color:var(--text-black);}
@@ -80,6 +75,8 @@ header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px)
 .view-btn{padding:7px 12px;border:1px solid var(--border-color);background:var(--bg-white);font-size:13px;font-weight:700;color:var(--text-gray);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
 .view-btn:hover{border-color:var(--accent-color);color:var(--accent-color);}
 .view-btn.active{background:var(--accent-color);color:white;border-color:var(--accent-color);}
+
+/* 카드 기본 스타일 */
 .card{background:var(--bg-white);border:1px solid var(--border-color);transition:all 0.2s;display:flex;cursor:pointer;position:relative;}
 .card:hover{border-color:var(--accent-color);}
 .card-link{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;}
@@ -90,8 +87,6 @@ header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px)
 .card-actions{display:flex;position:relative;z-index:2;}
 .action-link{text-align:center;font-weight:700;color:var(--text-black);border:1px solid var(--border-color);background:var(--bg-paper);transition:all 0.2s;}
 .action-link:hover{background:var(--text-black);color:var(--bg-white);border-color:var(--text-black);}
-.action-link.video{background:var(--bg-white);color:var(--accent-color);border:1px solid var(--accent-color);}
-.action-link.video:hover{color:var(--bg-white);background:var(--accent-color);}
 .hidden{display:none!important;}
 .no-result{text-align:center;padding:60px 20px;font-size:15px;color:var(--text-gray);border:1px solid var(--border-color);background:var(--bg-white);grid-column:1/-1;}
 .load-more-container{text-align:center;margin-top:40px;display:flex;justify-content:center;gap:12px;}
@@ -99,6 +94,8 @@ header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px)
 .btn-load:hover{background:var(--text-black);color:var(--bg-white);}
 .btn-collapse{background:var(--bg-white);border:1px solid var(--border-color);color:var(--text-gray);}
 .btn-collapse:hover{background:var(--border-color);color:var(--text-black);}
+
+/* 뷰 모드: 리스트형 (버튼 유지) */
 #patternGrid.view-list{display:flex;flex-direction:column;border-top:1px solid var(--border-color);}
 #patternGrid.view-list .card{display:grid;grid-template-columns:80px 1fr 1fr 1fr;align-items:center;padding:13px 24px;border:none;border-bottom:1px solid var(--border-color);gap:0;border-radius:0;}
 #patternGrid.view-list .card:hover{background:#FAFAF9;box-shadow:none;transform:none;}
@@ -109,23 +106,27 @@ header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px)
 #patternGrid.view-list .pattern-desc{display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;color:var(--text-black);font-weight:800;overflow:visible;-webkit-line-clamp:unset;}
 #patternGrid.view-list .card-actions{display:flex;align-items:center;justify-content:center;border-top:none;padding-top:0;gap:8px;margin-left:0;}
 #patternGrid.view-list .action-link{padding:7px 16px;font-size:13px;flex:none;white-space:nowrap;text-align:center;}
+
+/* 뷰 모드: 카드형 (버튼 숨김 적용) */
 #patternGrid.view-card{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-#patternGrid.view-card .card{flex-direction:column;justify-content:space-between;padding:28px;border-radius:0;}
+#patternGrid.view-card .card{flex-direction:column;justify-content:flex-start;padding:28px;border-radius:0;}
 #patternGrid.view-card .card:hover{box-shadow:0 8px 25px rgba(79,70,229,0.06);transform:translateY(-3px);}
 #patternGrid.view-card .card-top{margin-bottom:16px;}
 #patternGrid.view-card .pattern-name{font-size:26px;margin-bottom:10px;}
-#patternGrid.view-card .pattern-desc{display:-webkit-box;margin-bottom:30px;}
-#patternGrid.view-card .card-actions{border-top:1px solid var(--border-color);padding-top:20px;gap:10px; flex-direction: column;}
-#patternGrid.view-card .action-link{padding:10px 0;font-size:14px; width: 100%;}
+#patternGrid.view-card .pattern-desc{display:-webkit-box;}
+#patternGrid.view-card .card-actions{display:none; /* 카드형에서 버튼 숨김 */}
+
+/* 뷰 모드: 컴팩트형 (버튼 숨김 적용) */
 #patternGrid.view-compact{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-#patternGrid.view-compact .card{flex-direction:column;justify-content:space-between;padding:14px;border-radius:0;}
+#patternGrid.view-compact .card{flex-direction:column;justify-content:flex-start;padding:14px;border-radius:0;}
 #patternGrid.view-compact .card:hover{box-shadow:0 4px 12px rgba(79,70,229,0.06);transform:translateY(-2px);}
 #patternGrid.view-compact .card-top{margin-bottom:6px;}
 #patternGrid.view-compact .card-no{font-size:11px;}
 #patternGrid.view-compact .pattern-name{font-size:17px;margin-bottom:0;}
 #patternGrid.view-compact .pattern-desc{display:none;}
-#patternGrid.view-compact .card-actions{border-top:1px solid var(--border-color);padding-top:8px;margin-top:10px;gap:6px;}
-#patternGrid.view-compact .action-link{padding:6px 0;font-size:11px;flex:1;}
+#patternGrid.view-compact .card-actions{display:none; /* 컴팩트형에서 버튼 숨김 */}
+
+/* 기타 요소 스타일 */
 .premium-banner{margin-top:80px;background:var(--bg-white);border:1px solid var(--border-color);padding:50px 5%;text-align:center;}
 .premium-banner h2{font-size:26px;font-weight:800;margin-bottom:16px;}
 .premium-banner p{color:var(--text-gray);font-size:15.5px;margin-bottom:30px;font-weight:500;line-height:1.6;}
@@ -167,7 +168,7 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
   header{padding-right:5%;}
 }
 @media(max-width:768px){
-  .hero h1{font-size:32px;} /* 모바일 폰트 크기 조정 */
+  .hero h1{font-size:32px;}
   .hero{padding:50px 5% 60px 5%; border-left:none; border-right:none;}
   .hero-btns{flex-direction:column;align-items:center;}
   .hero-btn,.hero-btn-sub{width:260px;}
