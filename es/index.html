@@ -330,10 +330,20 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
 
 
 
-  <div style="text-align: center; margin-top: 30px;">
+<!-- 1. PC 화면에서 버튼을 숨기는 CSS 스타일 (head 태그 안이나 본문 위에 한번만 넣으면 됩니다) -->
+<style>
+  /* 화면 가로폭이 769px 이상(PC/태블릿)일 때는 이 버튼을 아예 숨김 */
+  @media (min-width: 769px) {
+    .mobile-only-coffee {
+      display: none !important;
+    }
+  }
+</style>
+
+<!-- 2. 모바일 전용 후원 버튼 (패턴 본문 내용이 끝나는 하단에 배치) -->
+<div class="mobile-only-coffee" style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
   <a href="https://ko-fi.com/M8V725PWF1" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: #F8CF53; color: #333333; font-size: 15px; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.2s; max-width: 90%; line-height: 1.4; word-break: keep-all;">
     
-    <!-- 찌그러짐 방지 처리된 SVG 커피 아이콘 (색상은 자동으로 글자색과 맞춰짐) -->
     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
       <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
       <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -342,8 +352,8 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
       <line x1="14" y1="1" x2="14" y2="4"></line>
     </svg>
 
-    <!-- 예쁜 줄바꿈을 위해 영어 선생님 단어 묶음 처리 -->
-    <span>Invita un café a tu <span style="white-space: nowrap;">English Teacher</span></span>    
+    <span>Invita un café a tu <span style="white-space: nowrap;">English Teacher</span></span>
+    
   </a>
 </div>
 
