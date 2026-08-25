@@ -41,21 +41,30 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'SUIT',sans-serif;letter-spacing:-0.02em;}
 body{background-color:var(--bg-paper);color:var(--text-black);line-height:1.6;-webkit-font-smoothing:antialiased;}
 a{text-decoration:none;color:inherit;}
-header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px);display:flex;justify-content:center;align-items:center;gap:48px;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:100;}
-.logo{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:900;color:var(--text-black);display:flex;flex-direction:column;align-items:center;gap:2px;letter-spacing:-0.03em;white-space:nowrap;}
-.logo span{color:var(--accent-color);font-weight:800;font-size:18px;margin-top:0;}
-.nav-btn{color:var(--text-black);border:1px solid var(--border-color);padding:8px 18px;font-weight:700;font-size:14px;transition:all 0.3s ease;background:var(--bg-paper);white-space:nowrap;}
-.nav-btn:hover{background:var(--accent-color);color:var(--bg-white);border-color:var(--accent-color);}
-.hero{padding:90px 5% 100px 5%;text-align:center;border-bottom:1px solid var(--border-color);}
-.hero-badge{color:var(--accent-color);font-weight:700;font-size:17px;display:block;margin-bottom:20px;}
-.hero h1{font-size:38px;font-weight:900;margin-bottom:24px;line-height:1.35;word-break:keep-all;}
-.hero p{font-size:19px;color:var(--text-gray);margin-bottom:40px;font-weight:500;max-width:650px;margin-inline:auto;word-break:keep-all;line-height:1.6;}
-.hero-cta-label{font-size:16px;font-weight:600;color:var(--text-gray);margin-bottom:16px;}
-.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
-.hero-btn{display:inline-block;width:200px;text-align:center;background:var(--bg-white);color:var(--text-black);padding:15px 0;font-size:15px;font-weight:700;border:1px solid var(--border-color);transition:all 0.3s ease;}
-.hero-btn:hover{background:var(--accent-color);color:var(--bg-white);border-color:var(--accent-color);}
-.hero-btn-sub{display:inline-block;width:200px;text-align:center;background:var(--bg-white);color:var(--text-black);padding:15px 0;font-size:15px;font-weight:700;border:1px solid var(--border-color);transition:all 0.3s ease;}
-.hero-btn-sub:hover{background:var(--accent-color);color:var(--bg-white);border-color:var(--accent-color);}
+
+/* -------------------------------------
+   [수정됨] 헤더 및 로고 (Style 2: 세로 스택형)
+------------------------------------- */
+header{background:var(--bg-white);padding:16px 5%;padding-right:calc(5% + 316px);display:flex;justify-content:center;align-items:center;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:100;}
+.logo-base { font-family: 'DM Sans', sans-serif; text-decoration: none; display: flex; flex-direction: column; align-items: center; white-space: nowrap; }
+.logo-base .main { font-size: 24px; font-weight: 900; color: var(--text-black); letter-spacing: -0.03em; line-height: 1.1; }
+.logo-base .sub { font-size: 11.5px; font-weight: 800; color: var(--accent-color); letter-spacing: 0.25em; text-transform: uppercase; margin-top: 3px; }
+
+/* -------------------------------------
+   [수정됨] 히어로 섹션 (Style 5 + 글자 크기 증가)
+------------------------------------- */
+.hero { background: var(--bg-white); border: 1px solid var(--border-color); max-width: 900px; margin: 40px auto 40px auto; padding: 60px 40px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+.hero-badge { display: inline-block; background: #EEF2FF; color: var(--accent-color); padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 15px; margin-bottom: 24px; letter-spacing: 0; }
+.hero h1 { font-size: 38px; font-weight: 900; margin-bottom: 24px; line-height: 1.35; letter-spacing: -0.03em; word-break: keep-all; }
+.hero h1 span { color: var(--accent-color); }
+.hero p { font-size: 19px; color: var(--text-gray); margin-bottom: 35px; font-weight: 600; max-width: 650px; margin-inline: auto; word-break: keep-all; line-height: 1.6; }
+
+.hero-features { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 35px; padding-top: 35px; border-top: 1px solid var(--border-color); }
+.hero-feature-item { background: var(--bg-paper); border: 1px solid var(--border-color); padding: 10px 18px; font-size: 15px; font-weight: 800; color: var(--text-black); display: flex; align-items: center; gap: 8px; }
+.hero-feature-item svg { width: 16px; height: 16px; stroke: var(--accent-color); fill: none; stroke-width: 3; }
+
+
+/* 기존 컨텐츠 스타일 유지 */
 .container{max-width:1100px;margin:0 auto;padding:70px 5%;}
 .section-header{margin-bottom:30px;text-align:left;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
 .section-title{font-size:28px;font-weight:900;color:var(--text-black);}
@@ -158,15 +167,14 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
   header{padding-right:5%;}
 }
 @media(max-width:768px){
-  .hero h1{font-size:28px;}
+  .hero h1{font-size:32px;} /* 모바일 폰트 크기 조정 */
+  .hero{padding:50px 5% 60px 5%; border-left:none; border-right:none;}
   .hero-btns{flex-direction:column;align-items:center;}
   .hero-btn,.hero-btn-sub{width:260px;}
   .section-header{flex-direction:column;align-items:flex-start;gap:12px;}
   .section-controls{width:100%;justify-content:space-between;}
   .search-box{max-width:100%;flex:1;}
   header{gap:12px;padding:12px 4%;}
-  .logo{font-size:16px;}
-  .logo span{font-size:14px;}
   .nav-btn{padding:7px 12px;font-size:12px;}
   .view-btn-card{display:none;}
   #patternGrid.view-card{grid-template-columns:1fr;}
@@ -179,16 +187,33 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
 </head>
 <body>
 <header>
-  <a class="logo" href="/">Inglés en Bloques<span>Patrones de Expansión</span></a>
+  <a class="logo-base" href="/">
+      <span class="main">Inglés en Bloques</span>
+      <span class="sub">Patrones de Expansión</span>
+  </a>
 </header>
 <div class="page-wrapper">
 <div class="main-content">
 
 <section class="hero">
-  <span class="hero-badge">La guía definitiva de patrones esenciales, de básico a avanzado</span>
-  <h1>¡Deja de pensar en palabras sueltas,<br>y empieza a hablar con oraciones fluidas!</h1>
-  <p>¡Basta de memorización aburrida!<br>Con el entrenamiento de 'expansión de oraciones', donde agregas detalles a un patrón básico,<br>las oraciones cortas se convierten en conversaciones naturales.</p>
-  <p class="hero-cta-label">¡Aprendamos juntos ahora mismo con los patrones de inglés clave a continuación!</p>
+  <span class="hero-badge">100 Patrones Esenciales (Básico ~ Avanzado)</span>
+  <h1>¡Deja de pensar en palabras sueltas,<br>y empieza a hablar con <span>oraciones fluidas</span>!</h1>
+  <p>Olvídate de la memorización aburrida. Conecta bloques lógicos y expande frases cortas paso a paso para ganar fluidez natural en inglés.</p>
+  
+  <div class="hero-features">
+    <div class="hero-feature-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Expansión de Oraciones
+    </div>
+    <div class="hero-feature-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      100 Patrones Clave
+    </div>
+    <div class="hero-feature-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Práctica Real de Habla
+    </div>
+  </div>
 </section>
 
 <section id="curriculum" class="container">
