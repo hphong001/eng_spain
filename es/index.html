@@ -199,22 +199,22 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
     </div>
     <div class="section-controls">
       <div class="view-btns">
-        <button class="view-btn view-btn-card active" onclick="setView('card')" title="Tarjeta">
+        <button class="view-btn view-btn-card active" onclick="window.setView('card')" title="Tarjeta">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Tarjeta
         </button>
-        <button class="view-btn" onclick="setView('compact')" title="Compacto">
+        <button class="view-btn" onclick="window.setView('compact')" title="Compacto">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="4" height="4"/><rect x="10" y="2" width="4" height="4"/><rect x="18" y="2" width="4" height="4"/><rect x="2" y="10" width="4" height="4"/><rect x="10" y="10" width="4" height="4"/><rect x="18" y="10" width="4" height="4"/><rect x="2" y="18" width="4" height="4"/><rect x="10" y="18" width="4" height="4"/><rect x="18" y="18" width="4" height="4"/></svg>
           Compacto
         </button>
-        <button class="view-btn" onclick="setView('list')" title="Lista">
+        <button class="view-btn" onclick="window.setView('list')" title="Lista">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
           Lista
         </button>
       </div>
       <div class="search-box">
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="searchInput" placeholder="Buscar patrón en inglés o significado en español" onkeyup="filterPatterns()" onfocus="this.previousElementSibling.style.color='var(--accent-color)'" onblur="this.previousElementSibling.style.color='#A0A0A0'">
+        <input type="text" id="searchInput" placeholder="Buscar patrón en inglés o significado en español" onkeyup="window.filterPatterns()" onfocus="this.previousElementSibling.style.color='var(--accent-color)'" onblur="this.previousElementSibling.style.color='#A0A0A0'">
       </div>
     </div>
   </div>
@@ -321,8 +321,9 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
 <div class="card"><a href="english/es/100-ive-decided-to/" class="card-link" aria-label="Estudiar ejemplos de I've decided to"></a><div><div class="card-top"><span class="card-no">100</span></div><h3 class="pattern-name">I've decided to</h3><p class="pattern-desc">Entrenamiento de expansión de oraciones</p></div><div class="card-actions"><a href="english/es/100-ive-decided-to/" class="action-link">Estudiar ejemplos</a></div></div>
   </div>
   <div class="load-more-container" id="loadMoreContainer">
-    <button class="btn-load" id="btnLoadMore" onclick="loadMore()">Ver más patrones ↓</button>
-    <button class="btn-load btn-collapse hidden" id="btnCollapse" onclick="collapseCards()">Reducir lista ↑</button>
+    <!-- 인라인 onclick을 제거하고 JS 이벤트 리스너로 변경 -->
+    <button class="btn-load" id="btnLoadMore">Ver más patrones ↓</button>
+    <button class="btn-load btn-collapse hidden" id="btnCollapse">Reducir lista ↑</button>
   </div>
 </section>
 
@@ -332,18 +333,15 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
     <a href="/about.html" style="color: #666; text-decoration: none;">Acerca de</a> &nbsp;|&nbsp;
     <a href="/contact.html" style="color: #666; text-decoration: none;">Contacto</a>
   </p>
-
   <p>© 2026 MyEnglishVault. Todos los derechos reservados.</p>
   <p style="margin-top: 6px;">Contacto : <a href="mailto:hphong@hphong.com">hphong@hphong.com</a></p>
 </footer>
 
 </div><!-- /main-content -->
-
-<aside class="sidebar">
-  <div class="sidebar-sticky" id="sidebar-wrap"></div>
-</aside>
+<aside class="sidebar"><div class="sidebar-sticky" id="sidebar-wrap"></div></aside>
 
 <script>
+// 사이드바 로딩 (상대경로 적용 완료)
 (function(){
   fetch('sidebar.html')
     .then(function(r){ return r.text(); })
@@ -361,99 +359,128 @@ footer{text-align:center;padding:40px 20px;color:var(--text-gray);font-size:13px
     .catch(function(e){ console.log('sidebar fetch error:', e); });
 })();
 </script>
+
 <script>
-var allCards = Array.from(document.querySelectorAll('#patternGrid .card'));
-var filteredCards = allCards;
-var currentView = 'card';
-var displayCount = 9;
-var initCount = { card: 9, compact: 20, list: 30 };
-var addCount  = { card: 9, compact: 16, list: 30 };
+// 메인 로직: 이벤트 리스너 방식으로 캡슐화하여 전역 충돌 완벽 방지
+document.addEventListener('DOMContentLoaded', function() {
+    var allCards = Array.from(document.querySelectorAll('#patternGrid .card'));
+    var filteredCards = allCards;
+    var currentView = 'card';
+    var displayCount = 9;
+    var initCount = { card: 9, compact: 20, list: 30 };
+    var addCount  = { card: 9, compact: 16, list: 30 };
 
-function setView(v){
-  currentView = v;
-  var grid = document.getElementById('patternGrid');
-  grid.className = 'view-' + v;
-  document.querySelectorAll('.view-btn').forEach(function(b){
-    b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + v + "'") !== -1);
-  });
-  displayCount = initCount[v] || 12;
-  renderCards();
-  try{ localStorage.setItem('engchanggo_view', v); } catch(e){}
-}
+    function renderCards(){
+        allCards.forEach(function(c){ c.style.display='none'; });
+        var show = filteredCards.slice(0, displayCount);
+        show.forEach(function(c){ c.style.display=''; });
+        
+        var lm = document.getElementById('loadMoreContainer');
+        var btnMore = document.getElementById('btnLoadMore');
+        var btnCollapse = document.getElementById('btnCollapse');
+        var init = initCount[currentView] || 12;
+        
+        lm.classList.remove('hidden');
+        
+        // 더보기 버튼 표시 여부
+        if(filteredCards.length > displayCount){ 
+            btnMore.classList.remove('hidden'); 
+        } else { 
+            btnMore.classList.add('hidden'); 
+        }
+        
+        // 줄이기 버튼 표시 여부
+        if(displayCount > init && filteredCards.length > init){ 
+            btnCollapse.classList.remove('hidden'); 
+        } else { 
+            btnCollapse.classList.add('hidden'); 
+        }
+        
+        // 두 버튼 모두 숨겨지면 컨테이너 자체를 숨김
+        if(btnMore.classList.contains('hidden') && btnCollapse.classList.contains('hidden')){ 
+            lm.classList.add('hidden'); 
+        }
+    }
 
-function renderCards(){
-  allCards.forEach(function(c){ c.style.display='none'; });
-  var show = filteredCards.slice(0, displayCount);
-  show.forEach(function(c){ c.style.display=''; });
-  var lm = document.getElementById('loadMoreContainer');
-  var btnMore = document.getElementById('btnLoadMore');
-  var btnCollapse = document.getElementById('btnCollapse');
-  var init = initCount[currentView] || 12;
-  lm.classList.remove('hidden');
-  if(filteredCards.length > displayCount){ btnMore.classList.remove('hidden'); }
-  else { btnMore.classList.add('hidden'); }
-  if(displayCount > init && filteredCards.length > init){ btnCollapse.classList.remove('hidden'); }
-  else { btnCollapse.classList.add('hidden'); }
-  if(btnMore.classList.contains('hidden') && btnCollapse.classList.contains('hidden')){ lm.classList.add('hidden'); }
-}
+    // ★ 버튼 클릭 이벤트 직접 연결 (HTML 내 onclick 속성 제거됨)
+    document.getElementById('btnLoadMore').addEventListener('click', function() {
+        displayCount += addCount[currentView] || 12;
+        renderCards();
+    });
 
-var meaningMap = {};
-fetch('es-pattern-list.json')
-  .then(function(r){ return r.json(); })
-  .then(function(list){
-    list.forEach(function(p){ meaningMap[p.slug] = p.meaning || ''; });
-    injectMeanings();
-  })
-  .catch(function(){});
+    document.getElementById('btnCollapse').addEventListener('click', function() {
+        displayCount = initCount[currentView] || 12;
+        renderCards();
+        // 줄어든 후 원래 위치로 부드럽게 스크롤
+        document.getElementById('curriculum').scrollIntoView({behavior:'smooth'});
+    });
 
-function injectMeanings(){
-  allCards.forEach(function(card){
-    var link = card.querySelector('.card-link');
-    if(!link) return;
-    var href = link.getAttribute('href') || '';
-    var match = href.match(/\/([^\/]+)\/$/);
-    var slug = match ? match[1] : '';
-    var desc = card.querySelector('.pattern-desc');
-    if(desc && slug && meaningMap[slug]){ desc.textContent = meaningMap[slug]; }
-  });
-}
+    // 뷰 전환 기능
+    window.setView = function(v){
+        currentView = v;
+        var grid = document.getElementById('patternGrid');
+        grid.className = 'view-' + v;
+        document.querySelectorAll('.view-btn').forEach(function(b){
+            b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + v + "'") !== -1);
+        });
+        displayCount = initCount[v] || 12;
+        renderCards();
+        try{ localStorage.setItem('engchanggo_view', v); } catch(e){}
+        if(v === 'list') setTimeout(injectMeanings, 0);
+    };
 
-var _origSetView = setView;
-setView = function(v){ _origSetView(v); if(v === 'list') setTimeout(injectMeanings, 0); };
+    // 검색 기능
+    window.filterPatterns = function(){
+        var q = document.getElementById('searchInput').value.toLowerCase().trim();
+        filteredCards = q === '' ? allCards : allCards.filter(function(c){
+            var n = c.querySelector('.pattern-name');
+            var desc = c.querySelector('.pattern-desc');
+            var descText = desc ? desc.textContent.toLowerCase() : '';
+            return (n && n.textContent.toLowerCase().includes(q)) || descText.includes(q);
+        });
+        displayCount = initCount[currentView] || 12;
+        
+        var grid = document.getElementById('patternGrid');
+        var nr = grid.querySelector('.no-result');
+        if(nr) nr.remove();
+        
+        if(filteredCards.length === 0){
+            allCards.forEach(function(c){ c.style.display='none'; });
+            grid.insertAdjacentHTML('beforeend','<div class="no-result">No se encontraron resultados.</div>');
+            document.getElementById('loadMoreContainer').classList.add('hidden');
+            return;
+        }
+        renderCards();
+    };
 
-function collapseCards(){
-  displayCount = initCount[currentView] || 12;
-  renderCards();
-  document.getElementById('curriculum').scrollIntoView({behavior:'smooth'});
-}
+    // 스페인어 JSON 데이터 불러오기 및 적용
+    var meaningMap = {};
+    fetch('es-pattern-list.json')
+      .then(function(r){ return r.json(); })
+      .then(function(list){
+        list.forEach(function(p){ meaningMap[p.slug] = p.meaning || ''; });
+        injectMeanings();
+      })
+      .catch(function(e){ console.log("JSON Load Error: ", e); });
 
-function filterPatterns(){
-  var q = document.getElementById('searchInput').value.toLowerCase().trim();
-  filteredCards = q === '' ? allCards : allCards.filter(function(c){
-    var n = c.querySelector('.pattern-name');
-    var desc = c.querySelector('.pattern-desc');
-    var descText = desc ? desc.textContent.toLowerCase() : '';
-    return (n && n.textContent.toLowerCase().includes(q)) || descText.includes(q);
-  });
-  displayCount = initCount[currentView] || 12;
-  var grid = document.getElementById('patternGrid');
-  var nr = grid.querySelector('.no-result');
-  if(nr) nr.remove();
-  if(filteredCards.length === 0){
-    allCards.forEach(function(c){ c.style.display='none'; });
-    grid.insertAdjacentHTML('beforeend','<div class="no-result">No se encontraron resultados.</div>');
-    document.getElementById('loadMoreContainer').classList.add('hidden');
-    return;
-  }
-  renderCards();
-}
+    function injectMeanings(){
+      allCards.forEach(function(card){
+        var link = card.querySelector('.card-link');
+        if(!link) return;
+        var href = link.getAttribute('href') || '';
+        var match = href.match(/\/([^\/]+)\/$/);
+        var slug = match ? match[1] : '';
+        var desc = card.querySelector('.pattern-desc');
+        if(desc && slug && meaningMap[slug]){ desc.textContent = meaningMap[slug]; }
+      });
+    }
 
-(function(){
-  var saved;
-  try{ saved = localStorage.getItem('engchanggo_view'); } catch(e){}
-  if(saved === 'card' && window.innerWidth <= 768) saved = 'compact';
-  setView(saved || 'compact');
-})();
+    // 초기 상태 불러오기 설정
+    var saved;
+    try{ saved = localStorage.getItem('engchanggo_view'); } catch(e){}
+    if(saved === 'card' && window.innerWidth <= 768) saved = 'compact';
+    window.setView(saved || 'compact');
+});
 </script>
 </body>
 </html>
